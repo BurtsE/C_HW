@@ -19,18 +19,20 @@ int refactorNumbers(int** numbers, int length, int minValue) {
       newLen--;
       i--;
     } else {
-      unsigned long sum = 0;
-      status s = 0;
-      s = isArmstrong((*numbers)[i], &sum);
-      switch (s) {
-    	case IS_ARMSTRONG:
-	  shift(numbers, i, newLen, 1);
-	  (*numbers)[i++] = (*numbers)[i];
-	  newLen++;
-      	  break;
-    	case ERR:
-	  free(*numbers);
-	  return -1;
+      if ((*numbers)[i] > 0) {
+        unsigned long sum = 0;
+        status s = 0;
+        s = isArmstrong((*numbers)[i], &sum);
+        switch (s) {
+      	  case IS_ARMSTRONG:
+	    shift(numbers, i, newLen, 1);
+	    (*numbers)[i++] = (*numbers)[i];
+	    newLen++;
+      	    break;
+    	  case ERR:
+	    free(*numbers);
+	    return -1;
+        }
       }
     }
   }
@@ -69,6 +71,9 @@ void shiftLeft(int** numbers, int start, int end) {
 
 int digitSum(int number) {
   int sum = 0;
+  if (number < 0) {
+    number = -number;
+  }
   while (number > 0) {
     sum += number % 10;
     number /= 10;

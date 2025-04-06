@@ -7,25 +7,27 @@ int digitSum(int);
 
 int refactorNumbers(LinkedList* numbers, int minValue) {
   int value = 0;
-  int index = 0;
   if (next(numbers, &value)) {
     return 1;
   }
+  int index = 0;
   do {
     if (digitSum(value) < minValue) {
       removeAt(numbers, index, NULL);
       index--;
     } else {
-      unsigned long sum = 0;
-      status s = 0;
-      s = isArmstrong(value, &sum);
-      switch (s) {
-        case IS_ARMSTRONG:
-          insert(numbers, value, index);
-	  index++;
-          break;
-        case ERR:
-          return -1;
+      if (value > 0) {
+        unsigned long sum = 0;
+        status s = 0;
+        s = isArmstrong(value, &sum);
+        switch (s) {
+          case IS_ARMSTRONG:
+            insert(numbers, value, index);
+            index++;
+            break;
+          case ERR:
+            return -1;
+        }
       }
     }
     index++;
@@ -35,6 +37,9 @@ int refactorNumbers(LinkedList* numbers, int minValue) {
 
 int digitSum(int number) {
   int sum = 0;
+  if (number < 0) {
+    number = -number;
+  }
   while (number > 0) {
     sum += number % 10;
     number /= 10;

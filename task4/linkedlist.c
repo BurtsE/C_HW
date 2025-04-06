@@ -34,6 +34,7 @@ int insert(LinkedList* list, int value, int index) {
   int current = 0;
   while (temp && current < index-1) {
     temp = temp->next;
+    current++;
   }
   if (!temp) {
     free(l);
@@ -59,6 +60,7 @@ int removeAt(LinkedList* list, int index, int* value) {
   int current = 0;
   while (temp->next && current < index-1) {
     temp = temp->next;
+    current++;
   }
   if (!temp->next) {
     return -2;
