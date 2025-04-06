@@ -23,6 +23,7 @@ int main() {
   printf("Result values:\n");
   if (next(list, &value)) {
    printf("Empty array\n");
+   freeList(list);
    return 0;
   }
   do {
